@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Sheikh Tasmia</title>
+  <meta name="description" content="Contact Sheikh Tasmia — Book an appointment or send a message." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand"><a href="index.html" class="brand-link">Sheikh Tasmia</a></div>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="contact.html" class="active button-outline">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section contact-section">
+      <div class="container section-inner split">
+        <div>
+          <h1>Contact</h1>
+          <p class="muted">Reach out for collaborations, bookings, or questions.</p>
+
+          <div class="contact-social">
+            <!-- UPDATE: Replace href="#" with your social profile links -->
+            <a href="#" class="button-outline">Facebook</a>
+            <a href="#" class="button-outline">Instagram</a>
+            <a href="#" class="button-outline">LinkedIn</a>
+            <a href="#" class="button-outline">Twitter</a>
+            <a href="#" class="button-outline">YouTube</a>
+          </div>
+
+          <div class="contact-details">
+            <p><strong>Email:</strong> <a href="mailto:you@example.com">you@example.com</a></p>
+            <p><strong>Location:</strong> City, Country</p>
+          </div>
+        </div>
+
+        <div>
+          <h3>Book a Meeting / Send a Message</h3>
+          <!-- EmailJS: Replace action or use JS. Alternatively set form action to Formspree. -->
+          <form id="contactForm" class="contact-form">
+            <label>
+              <span>Name</span>
+              <input type="text" name="from_name" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="reply_to" required />
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+            <label>
+              <span>Date & Time</span>
+              <input type="datetime-local" name="booking_datetime" />
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="button primary">Send Message</button>
+              <button type="reset" class="button-outline">Reset</button>
+            </div>
+            <p id="formStatus" class="muted" aria-live="polite"></p>
+          </form>
+          <p class="muted note">This form sends via EmailJS. See README for setup steps.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left"><small>© <span id="year4"></span> Sheikh Tasmia</small></div>
+      <div class="footer-right social">
+        <a href="#" class="social-link" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9v-7h-2.2v-2.9h2.2V9.1c0-2.2 1.3-3.4 3.3-3.4.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v1.5h2.2l-.4 2.9h-1.8v7A10 10 0 0022 12z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <script src="js/main.js" defer></script>
+  <script>
+    // Initialize EmailJS (replace placeholders in main.js as well)
+    (function(){
+      // Replace 'EMAILJS_USER_ID' with your EmailJS user ID
+      if(window.emailjs) {
+        emailjs.init('EMAILJS_USER_ID');
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — Sheikh Tasmia</title>
+  <meta name="description" content="Portfolio of Sheikh Tasmia — Digital Marketing Projects, Writing, and Other Works." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand"><a href="index.html" class="brand-link">Sheikh Tasmia</a></div>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html" class="active">Portfolio</a></li>
+          <li><a href="contact.html" class="button-outline">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container section-inner">
+        <h1>Portfolio</h1>
+        <p class="muted">Selected projects across digital marketing, writing, and other works.</p>
+
+        <div class="portfolio-filters">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="marketing">Digital Marketing</button>
+          <button class="filter" data-filter="writing">Writing</button>
+          <button class="filter" data-filter="other">Other Works</button>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Example project card -->
+          <article class="project-card" data-category="marketing">
+            <img src="assets/project1.jpg" alt="Project 1" />
+            <div class="card-body">
+              <h3>Brand Growth Campaign</h3>
+              <p class="muted">A performance-led social media campaign with 3x ROI.</p>
+              <div class="card-actions">
+                <button class="button-outline view-project" data-title="Brand Growth Campaign" data-image="assets/project1.jpg" data-desc="Detailed case study and results...">View Project</button>
+                <a href="#" class="link-small">External Link</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="writing">
+            <img src="assets/project2.jpg" alt="Project 2" />
+            <div class="card-body">
+              <h3>Editorial Series</h3>
+              <p class="muted">Long-form articles focused on productivity and systems.</p>
+              <div class="card-actions">
+                <button class="button-outline view-project" data-title="Editorial Series" data-image="assets/project2.jpg" data-desc="A series on productivity, content planning and workflow...">View Project</button>
+                <a href="#" class="link-small">Read Article</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="other">
+            <img src="assets/project3.jpg" alt="Project 3" />
+            <div class="card-body">
+              <h3>Creative Studio Work</h3>
+              <p class="muted">Motion and visual identity projects for local brands.</p>
+              <div class="card-actions">
+                <button class="button-outline view-project" data-title="Creative Studio Work" data-image="assets/project3.jpg" data-desc="Highlights of motion design and branding work.">View Project</button>
+                <a href="#" class="link-small">Portfolio</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="projectModal" class="modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-body">
+        <img id="modalImage" src="" alt="" />
+        <div class="modal-text">
+          <h3 id="modalTitle"></h3>
+          <p id="modalDesc"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left"><small>© <span id="year3"></span> Sheikh Tasmia</small></div>
+      <div class="footer-right social">
+        <a href="#" class="social-link" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.7A4.3 4.3 0 1016.3 12 4.3 4.3 0 0012 7.7zm6.4-.8a1.1 1.1 0 11-1.1-1.1 1.1 1.1 0 011.1 1.1z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
