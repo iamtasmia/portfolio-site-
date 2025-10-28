@@ -1,0 +1,497 @@
+/* Tailwind-inspired component CSS for Sheikh Tasmia — Portfolio
+   - Usage: link this stylesheet in your HTML pages (replace or alongside existing css/style.css)
+   - Fonts: Poppins & Montserrat are loaded via @import below. For best performance, include the Google Fonts <link> in the <head>.
+   - This file provides component classes that follow the Tailwind layout & visual guidelines requested,
+     but implemented in plain CSS so you don't need Tailwind tooling.
+*/
+
+/* ---------------------------
+   Fonts
+   --------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap');
+
+/* ---------------------------
+   Design tokens (colors, spacing, shadows)
+   --------------------------- */
+:root{
+  /* Base colors */
+  --bg-100: #fbfdff;
+  --bg-200: #f7fafc;
+  --surface: #ffffff;
+  --muted: #6b7280;            /* slate gray */
+  --text: #0f1724;             /* navy-ish */
+  --navy-900: #071233;
+  --navy-800: #0f1724;
+  --teal-500: #14b8a6;        /* accent teal */
+  --teal-600: #0ea79a;
+  --gold-400: #d4af37;        /* optional gold accent */
+  --glass: rgba(255,255,255,0.6);
+
+  /* Shadows */
+  --shadow-sm: 0 4px 10px rgba(2,6,23,0.06);
+  --shadow-md: 0 10px 25px rgba(2,6,23,0.08);
+  --shadow-lg: 0 20px 40px rgba(2,6,23,0.12);
+
+  /* Radii */
+  --r-2xl: 1rem;              /* ~rounded-2xl */
+  --r-xl: 0.75rem;
+  --r-lg: 0.5rem;
+
+  /* Layout */
+  --container-max: 1100px;
+  --transition-fast: 240ms;
+  --transition-medium: 320ms;
+}
+
+/* Dark mode via prefers-color-scheme (optional)
+   You can also toggle with .dark class on <html> if you prefer JS-driven dark mode.
+*/
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg-100: #0b1220;
+    --bg-200: #071224;
+    --surface: #0b1220;
+    --muted: #9aa4b2;
+    --text: #e6eef8;
+    --navy-900: #000814;
+    --shadow-sm: 0 6px 20px rgba(2,6,23,0.45);
+    --shadow-md: 0 12px 30px rgba(2,6,23,0.55);
+    --shadow-lg: 0 30px 60px rgba(2,6,23,0.65);
+  }
+
+  .btn-outline { color: var(--text); border-color: rgba(255,255,255,0.06); }
+  .site-footer { border-top-color: rgba(255,255,255,0.04); }
+}
+
+/* ---------------------------
+   Base & Utility resets
+   --------------------------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg-100) 0%, var(--bg-200) 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.55;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Container */
+.container{
+  width:100%;
+  max-width:var(--container-max);
+  margin:0 auto;
+  padding-left:1.5rem;
+  padding-right:1.5rem;
+}
+
+/* Responsive padding helpers to match requested px-6 md:px-16 py-10 md:py-20 */
+.section-pad{
+  padding-top:2.5rem;   /* ~py-10 */
+  padding-bottom:2.5rem;
+}
+@media(min-width:768px){
+  .section-pad{ padding-top:5rem; padding-bottom:5rem; } /* ~md:py-20 */
+  .container{ padding-left:4rem; padding-right:4rem; }   /* md:px-16 */
+}
+
+/* Headings */
+.h1{
+  font-family: 'Montserrat', sans-serif;
+  font-weight:700;
+  font-size:2.75rem; /* ~text-5xl */
+  line-height:1.02;
+  margin:0;
+}
+@media(min-width:768px){ .h1{ font-size:3.5rem; } /* ~text-6xl */ }
+
+.h2{
+  font-size:1.875rem; /* ~text-3xl */
+  font-weight:600;
+  margin:0 0 0.75rem 0;
+  color:var(--navy-800);
+}
+
+/* Paragraphs */
+.lead{ color:var(--muted); font-size:1.025rem; margin-top:0.5rem; }
+
+/* ---------------------------
+   Animations
+   --------------------------- */
+/* fade in (simple) */
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(12px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.fade-in-up{ animation: fadeInUp 520ms var(--transition-fast) both; }
+
+/* subtle bounce for scroll indicator */
+@keyframes softBounce {
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(8px); }
+}
+.animate-bounce-soft{ animation: softBounce 1.6s infinite; }
+
+/* image zoom on hover (group) */
+.scale-hover{ transform-origin:center center; transition: transform var(--transition-medium) ease; }
+.group:hover .scale-hover{ transform: scale(1.06); }
+
+/* ---------------------------
+   Header / Nav
+   --------------------------- */
+.site-header{
+  position: sticky;
+  top:0;
+  z-index:50;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:0.9rem 0;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+}
+.brand .logo {
+  width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,var(--navy-900),var(--teal-500)); display:inline-flex;
+  align-items:center; justify-content:center; color:white; font-weight:700; font-family:Montserrat;
+  box-shadow:var(--shadow-sm);
+}
+.brand .name{ font-weight:700; font-family: 'Montserrat', sans-serif; font-size:1.05rem; color:var(--text); text-decoration:none; }
+
+/* nav links */
+.nav-list{ display:flex; gap:1rem; align-items:center; margin:0; padding:0; list-style:none; }
+.nav-link{
+  color:var(--text); text-decoration:none; padding:.55rem .7rem; border-radius:.65rem; transition: all var(--transition-fast);
+}
+.nav-link:hover{ transform: translateY(-3px); color:var(--teal-500); box-shadow:var(--shadow-sm); }
+.nav-link.active{ color:var(--teal-500); font-weight:600; }
+
+/* small responsive nav toggle (simple) */
+.nav-toggle{ display:none; background:transparent; border:0; }
+@media(max-width:900px){
+  .nav-list{ display:none; position:fixed; right:1rem; top:72px; background:var(--surface); padding:1rem; border-radius:12px; box-shadow:var(--shadow-md); flex-direction:column; }
+  .nav-list.open{ display:flex; }
+  .nav-toggle{ display:block; }
+}
+
+/* ---------------------------
+   Hero
+   --------------------------- */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding: 2.5rem 0;
+  background: linear-gradient(90deg, rgba(7,18,51,0.95) 0%, rgba(15,23,36,0.94) 45%, rgba(20,184,166,0.9) 100%);
+  color: white;
+}
+.hero-inner{
+  width:100%;
+  max-width:1080px;
+  margin:0 auto;
+  padding:2rem;
+}
+.hero-title{
+  font-family:'Montserrat',sans-serif;
+  font-size:2.75rem;
+  font-weight:700;
+  margin:0;
+  text-shadow: 0 6px 20px rgba(2,6,23,0.35);
+}
+@media(min-width:768px){ .hero-title{ font-size:3.75rem; } }
+.hero-sub{
+  margin-top:.6rem;
+  color: rgba(255,255,255,0.92);
+  font-weight:600;
+  font-size:1.05rem;
+}
+.hero-tagline{ color: rgba(255,255,255,0.84); margin-top:0.6rem; max-width:720px; margin-left:auto; margin-right:auto; }
+
+/* CTA buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:0.65rem;
+  border-radius:9999px; /* pill */
+  padding:0.6rem 1.1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  text-decoration:none;
+}
+.btn-primary{
+  background: linear-gradient(180deg, var(--teal-500), var(--teal-600));
+  color:white;
+}
+.btn-primary:hover{ transform: translateY(-4px); box-shadow: var(--shadow-lg); background: linear-gradient(180deg, var(--teal-600), var(--teal-600)); }
+.btn-outline{
+  background: transparent;
+  color: white;
+  border:1px solid rgba(255,255,255,0.12);
+}
+.hero-cta{ margin-top:1.25rem; display:flex; gap:1rem; justify-content:center; align-items:center; flex-wrap:wrap; }
+
+/* scroll indicator */
+.scroll-indicator{
+  margin-top:2rem;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color: rgba(255,255,255,0.9);
+}
+.scroll-dot{
+  width:38px; height:38px; border-radius:9999px; border:2px solid rgba(255,255,255,0.18); display:inline-flex; align-items:center; justify-content:center;
+  animation: softBounce 1.6s infinite;
+}
+
+/* ---------------------------
+   About Page
+   --------------------------- */
+.about-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:1.5rem;
+  align-items:center;
+}
+@media(min-width:768px){ .about-grid{ grid-template-columns: 40% 1fr; gap:2.5rem; } }
+
+.profile-photo{
+  border-radius: var(--r-2xl);
+  overflow:hidden;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-medium), box-shadow var(--transition-fast);
+}
+.profile-photo img{ display:block; width:100%; height:auto; transform-origin:center center; transition: transform var(--transition-medium); }
+.profile-photo:hover img{ transform: scale(1.03); }
+
+.about-heading{
+  margin-bottom:1rem;
+  color:var(--navy-800);
+  font-weight:700;
+  font-family: 'Montserrat', sans-serif;
+  font-size:1.75rem;
+}
+.highlight{ color:var(--teal-500); font-weight:700; }
+
+/* Team Cards grid */
+.team-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:1rem;
+  margin-top:1rem;
+}
+@media(min-width:640px){ .team-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media(min-width:1024px){ .team-grid{ grid-template-columns: repeat(3, 1fr); } }
+
+.team-card{
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  padding:1rem;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.team-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.team-card .avatar{ width:72px; height:72px; border-radius:14px; object-fit:cover; box-shadow:var(--shadow-sm); }
+
+/* ---------------------------
+   Portfolio
+   --------------------------- */
+.filter-bar{
+  display:flex;
+  justify-content:center;
+  gap:1.25rem;
+  margin-bottom:1.25rem;
+  flex-wrap:wrap;
+}
+.filter-btn{
+  background:transparent; border: none; padding:.4rem .6rem; cursor:pointer; font-weight:600; color:var(--muted);
+  border-bottom:3px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+.filter-btn:hover{ color:var(--teal-500); border-color:var(--teal-500); transform: translateY(-3px); }
+.filter-btn.active{ color:var(--teal-500); border-color:var(--teal-500); }
+
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1.25rem;
+}
+@media(min-width:640px){ .portfolio-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media(min-width:1024px){ .portfolio-grid{ grid-template-columns: repeat(3, 1fr); } }
+
+.project-card{
+  background: var(--surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  display:flex;
+  flex-direction:column;
+}
+.project-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+
+/* Image with group overlay */
+.project-thumb{
+  position:relative;
+  overflow:hidden;
+  height:200px;
+}
+.project-thumb img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform var(--transition-medium); }
+.project-card:hover .project-thumb img{ transform: scale(1.08); }
+.project-overlay{
+  position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,20,20,0.08), rgba(20,20,20,0.35));
+  opacity:0; transition: opacity var(--transition-medium); pointer-events:none;
+}
+.project-card:hover .project-overlay{ opacity:1; pointer-events:auto; }
+
+/* Card body */
+.project-body{ padding:1rem 1.1rem 1.25rem 1.1rem; display:flex; flex-direction:column; gap:0.6rem; flex:1; }
+.project-title{ font-size:1.125rem; font-weight:700; color:var(--navy-800); }
+.project-desc{ color:var(--muted); font-size:0.95rem; margin-top:0.25rem; flex:1; }
+.project-actions{ margin-top:0.6rem; display:flex; align-items:center; gap:1rem; }
+
+/* ---------------------------
+   Contact
+   --------------------------- */
+.contact-wrap{
+  max-width:720px;
+  margin:0 auto;
+  text-align:center;
+  padding:2rem;
+}
+.contact-card{
+  background: var(--surface);
+  border-radius: var(--r-2xl);
+  padding:1.25rem;
+  box-shadow: var(--shadow-lg);
+}
+.input, textarea{
+  width:100%;
+  border:1px solid #e6eef8;
+  border-radius: 0.75rem;
+  padding:0.8rem 1rem;
+  font-size:1rem;
+  outline:none;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  background: #fff;
+}
+.input:focus, textarea:focus{
+  box-shadow: 0 6px 18px rgba(20,184,166,0.12);
+  border-color: var(--teal-500);
+  transform: translateY(-1px);
+}
+.form-row{ display:grid; grid-template-columns:1fr; gap:0.75rem; }
+@media(min-width:640px){ .form-row.two{ grid-template-columns: repeat(2,1fr); } }
+
+.contact-actions{ display:flex; gap:0.6rem; justify-content:center; margin-top:0.6rem; flex-wrap:wrap; }
+
+/* Social icons row */
+.social-row{ display:flex; justify-content:center; gap:1.25rem; margin-top:1rem; color:var(--muted); font-size:1.4rem; }
+.social-row a{ color:var(--muted); transition: color var(--transition-fast), transform var(--transition-fast); }
+.social-row a:hover{ color:var(--teal-500); transform: translateY(-3px); }
+
+/* ---------------------------
+   Footer
+   --------------------------- */
+.site-footer{
+  border-top:1px solid rgba(15,23,36,0.04);
+  padding:1rem 0;
+}
+.footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.footer-inner small{ color:var(--muted); }
+
+/* ---------------------------
+   Helpers & small utilities
+   --------------------------- */
+.center{ text-align:center; }
+.rounded-2xl{ border-radius: var(--r-2xl); }
+.rounded-xl{ border-radius: var(--r-xl); }
+.shadow-lg{ box-shadow: var(--shadow-lg); }
+.shadow-md{ box-shadow: var(--shadow-md); }
+.transition-base{ transition: all var(--transition-fast) ease; }
+
+.hidden{ display:none; }
+.visible{ display:block; }
+
+/* Scroll reveal helper:
+   Elements start with .sr-hidden (opacity:0 translateY(12px)) and when JS adds .sr-visible they animate.
+*/
+.sr-hidden{ opacity:0; transform:translateY(12px); transition: opacity 520ms ease, transform 520ms ease; }
+.sr-visible{ opacity:1; transform:translateY(0); }
+
+/* ---------------------------
+   Example component compositions (class combinations you can use in HTML)
+   ---------------------------
+   Hero:
+     <section class="hero">
+       <div class="hero-inner container">
+         <h1 class="hero-title fade-in-up">Sheikh Tasmia</h1>
+         <p class="hero-sub fade-in-up" style="animation-delay:80ms">Digital Marketer & Content Creator</p>
+         <p class="hero-tagline fade-in-up" style="animation-delay:140ms">Helping brands grow...</p>
+         <div class="hero-cta fade-in-up" style="animation-delay:200ms">
+           <a class="btn btn-primary" href="/portfolio.html">View My Work</a>
+           <a class="btn btn-outline" href="/contact.html">Contact Me</a>
+         </div>
+         <div class="scroll-indicator" style="margin-top:2.25rem;">
+           <div class="scroll-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+         </div>
+       </div>
+     </section>
+
+   About grid:
+     <section class="section-pad container">
+       <div class="about-grid">
+         <div class="profile-photo"><img src="assets/profile.jpg" alt=""></div>
+         <div>
+           <h2 class="about-heading">About Me</h2>
+           <p class="lead">I'm a digital marketer... <span class="highlight">Founder of STechNova</span></p>
+         </div>
+       </div>
+     </section>
+
+   Portfolio card:
+     <article class="project-card">
+       <div class="project-thumb"><img src="..." alt=""></div>
+       <div class="project-body">
+         <h3 class="project-title">Project</h3>
+         <p class="project-desc">Short description...</p>
+         <div class="project-actions">
+           <a class="link" href="#">View Project</a>
+         </div>
+       </div>
+     </article>
+
+   Contact form:
+     <div class="contact-wrap">
+       <div class="contact-card">
+         <form class="space-y-4">
+           <div class="form-row two">
+             <input class="input" placeholder="Name" />
+             <input class="input" placeholder="Email" />
+           </div>
+           <textarea class="input" rows="5" placeholder="Message"></textarea>
+           <div class="contact-actions">
+             <button class="btn btn-primary">Send Message</button>
+           </div>
+         </form>
+       </div>
+     </div>
+*/
+
+/* ---------------------------
+   End of file
+   --------------------------- */
